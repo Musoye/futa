@@ -8,10 +8,12 @@ int main(void)
 
     printf("%s", "Enter an integer: ");
     scanf("%u", &number);
-    
-    unsigned long long int result = fibonacci(number);
 
-    printf("Fibonacci(%u) = %llu\n", number, result);
+    for (int i  = 1; i <= number; i++) {
+        unsigned long long int result = fibonacci(i);
+        printf("Fibonacci(%u) = %llu\n", i, result);
+
+    }
 }
 
 unsigned long long int fibonacci(unsigned int n)
