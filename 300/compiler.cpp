@@ -39,9 +39,9 @@ class overload {
         n2 = num2;
         res = n1 - n2;
         cout << "Result: " <<res <<endl;
-
+        return res;
     }
-    void operator_() //syntax for operator overloading
+    void operator-() //syntax for operator overloading
     {
         n1 = -n1;
         n2 = -n2;
@@ -58,7 +58,8 @@ int main ()
 {
     overload a;
     a.Overload(6, 8);
-    a.operator_();
+    a.display();
+    -a;
     a.display();
     return 0;
 }
