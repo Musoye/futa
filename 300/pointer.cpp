@@ -21,7 +21,9 @@ int main() {
 
     //  Releasing the reserve space as this is dynamic memory allocation
     delete ptr;
-    delete arr;
+    delete[] arr; // to delete array
+
+    return 0;
 }
 
 
