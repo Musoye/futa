@@ -71,7 +71,7 @@ private:
         }
 
         string line;
-        // detect and skip header if present
+        // Removing the header of the csv
         if (getline(file, line)) {
             string lower = line;
             transform(lower.begin(), lower.end(), lower.begin(),
@@ -79,7 +79,6 @@ private:
             if (lower.find("id") != string::npos ||
                 lower.find("question") != string::npos ||
                 lower.find("answer") != string::npos) {
-                // header consumed
             } else {
                 file.seekg(0);
             }
@@ -134,28 +133,33 @@ private:
         categories[5] = {"computer", readQuestionsFromCSV(5)};
     }
 
-    // always take the LAST question node from the linked list
-    Current *getLastQuestion(QA_Node *&head) {
+    // Get a random question from a category lit and remove it
+    Current *getRandomQuestion(QA_Node *&head) {
         if (!head) return nullptr;
 
+        // 1. Count nodes
+        int count = 0;
+        for (QA_Node *p = head; p; p = p->next) count++;
+
+        // 2. Pick random index
+        int idx = rand() % count;
+
+        // 3. Remove node at idx
         QA_Node *prev = nullptr;
         QA_Node *cur = head;
-
-        while (cur->next) { // go to last node
+        for (int i = 0; i < idx; i++) {
             prev = cur;
             cur = cur->next;
         }
 
         if (prev)
-            prev->next = nullptr;
+            prev->next = cur->next;  // unlinking node
         else
-            head = nullptr;
+            head = cur->next;        // removing first node
 
-        Current *new_que = new Current{cur->q, cur->answer};
-
-        delete cur; // free node memory
-
-        return new_que;
+        Current *picked = new Current{cur->q, cur->answer};
+        delete cur;
+        return picked;
     }
 
 public:
@@ -174,10 +178,10 @@ public:
     }
 
     Current *rollDice(int &catIndexOut) {
-        catIndexOut = rand() % 6; // random category
+        catIndexOut = rand() % 6; 
         QA_Node *&head = categories[catIndexOut].question;
         if (!head) return nullptr;
-        return getLastQuestion(head); // always last question
+        return getRandomQuestion(head);
     }
 
     bool checkAnswer(const string &userAns, const string &correctAns) {
@@ -257,12 +261,11 @@ public:
                     cout << "Correct! Score: " << score << endl;
                 } else {
                     lives--;
-                    cout << "Wrong! The correct answer is: " << randomQ->ans
-                        << ". Lives left: " << lives << endl;
+                    cout << "Wrong! The correct answer is: " << randomQ->ans << endl;
+                    cout << "Lives left: " << lives << endl;
                 }
                 delete randomQ;
             } else {
-                //cout << "No more questions in this category. Rolling again...\n";
                 continue;
             }
         }
