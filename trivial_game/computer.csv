@@ -1,0 +1,11 @@
+CompEng_ID,CompEng_Q,CompEng_A
+1,Which logic gate outputs 1 only when all its inputs are 1?,AND gate
+2,Which register holds the address of the next instruction to execute?,Program Counter
+3,Which binary number system base is used in computers?,2
+4,What unit is used to measure processor clock speed?,Hertz
+5,What does the acronym ALU stand for?,Arithmetic Logic Unit
+6,Which bus carries data between the CPU and memory?,Data bus
+7,What is the smallest addressable unit of memory?,Byte
+8,Which computer component is known as the brain of the computer?,CPU
+9,Which storage type is non-volatile and retains data without power?,Flash memory
+10,Which type of memory is used for temporary storage of data currently in use?,RAM
